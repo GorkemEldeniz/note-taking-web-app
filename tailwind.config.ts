@@ -51,9 +51,9 @@ export default {
       "3xl": "24px",
     },
     letterSpacing: {
-      tight: "-.2px",
+      tight: "-.5px",
       normal: "-.3px",
-      wide: "-.5px",
+      wide: "-.2px",
     },
     lineHeight: {
       tight: "1.2",
@@ -88,5 +88,6 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;

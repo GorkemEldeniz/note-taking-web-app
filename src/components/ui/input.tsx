@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils/cn";
+import type { Icon } from "@/lib/utils/types";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import * as React from "react";
 import { useState } from "react";
 
 const inputVariants = cva(
-  "placeholder:text-neutral-500 text-neutral-900 text-base leading-tight tracking-tight appearance-none focus-visible:outline-none disabled:text-neutral-300 disabled:bg-neutral-50"
+  "placeholder:text-neutral-500 text-neutral-900 text-base leading-[20px] tracking-tight appearance-none focus-visible:outline-none disabled:text-neutral-300 disabled:bg-neutral-50"
 );
 
 export interface InputProps
@@ -16,10 +17,11 @@ export interface InputProps
     VariantProps<typeof inputVariants> {
   asChild?: boolean;
   error?: boolean;
+  icon?: Icon;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ error, className, asChild = false, ...props }, ref) => {
+  ({ error, className, icon, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "input";
 
     const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +36,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           }
         )}
       >
+        {icon && (
+          <Image
+            src={`/images/icon-${icon}.svg`}
+            alt={icon}
+            width={20}
+            height={20}
+          />
+        )}
+
         <Comp
           className={cn(inputVariants({ className }))}
           ref={ref}
@@ -46,16 +57,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               <Image
                 src="/images/icon-hide-password.svg"
                 alt="hide password"
-                width={16}
-                height={16}
+                width={20}
+                height={20}
                 onClick={() => setShowPassword(false)}
               />
             ) : (
               <Image
                 src="/images/icon-show-password.svg"
                 alt="show password"
-                width={16}
-                height={16}
+                width={20}
+                height={20}
                 onClick={() => setShowPassword(true)}
               />
             )}
